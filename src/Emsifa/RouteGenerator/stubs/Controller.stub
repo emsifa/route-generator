@@ -1,0 +1,7 @@
+<?php {namespace}{used_classes}
+
+class {classname} extends BaseController {
+
+	
+
+}

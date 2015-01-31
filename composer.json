@@ -1,0 +1,20 @@
+{
+    "name": "emsifa/route-generator",
+    "description": "Laravel 4.2 Route Generator",
+    "authors": [
+        {
+            "name": "Muhammad Syifa",
+            "email": "emsifa@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Emsifa\\Larakit": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

@@ -13,8 +13,9 @@
     },
     "autoload": {
         "psr-0": {
-            "Emsifa\\Larakit": "src/"
+            "Emsifa\\RouteGenerator": "src/"
         }
     },
+    "license": "MIT",
     "minimum-stability": "stable"
 }

@@ -1,6 +1,8 @@
 {
     "name": "emsifa/route-generator",
     "description": "Laravel 4.2 Route Generator",
+    "keywords": ["laravel", "artisan", "command", "route", "generator"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Muhammad Syifa",
@@ -16,6 +18,5 @@
             "Emsifa\\RouteGenerator": "src/"
         }
     },
-    "license": "MIT",
     "minimum-stability": "stable"
 }

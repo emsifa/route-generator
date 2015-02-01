@@ -15,7 +15,6 @@ class RouteGenerator extends Route {
 	public function __construct($methods, $uri, $action)
 	{
 		parent::__construct($methods, $uri, $action);
-		$this->action_generator = new RouteActionGenerator($this);
 	}
 
 	public function getConditions()
@@ -71,6 +70,10 @@ class RouteGenerator extends Route {
 
 	public function getActionGenerator()
 	{
+		if(!$this->action_generator) {
+			$this->action_generator = new RouteActionGenerator($this);
+		}
+
 		return $this->action_generator;
 	}
 
@@ -169,13 +172,15 @@ class RouteGenerator extends Route {
 	public function needGenerateController()
 	{
 		list($controller, $method) = explode('@', $this->getActionName(), 2);
-		return (false == class_exists($controller));
+
+		return false == $this->getActionGenerator()->controllerExists();
 	}
 
 	public function needGenerateMethod()
 	{
 		list($controller, $method) = explode('@', $this->getActionName(), 2);
-		return (false == method_exists($controller, $method));
+		
+		return false == $this->getActionGenerator()->methodExists();
 	}
 
 	protected function getRouteAction()

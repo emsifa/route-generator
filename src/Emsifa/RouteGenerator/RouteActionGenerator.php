@@ -53,13 +53,27 @@ class RouteActionGenerator {
 		return $this->has_generate_method;
 	}
 
+	public function controllerExists()
+	{
+		$file = $this->getControllerFile();
+		$class = $this->getControllerClass();
+		return (file_exists($file) AND class_exists($class));
+	}
+
+	public function methodExists()
+	{
+		$class = $this->getControllerClass();
+		$method = $this->getControllerMethod();
+		return ($this->controllerExists() AND method_exists($class, $method));
+	}
+
 	public function generate()
 	{
-		if($this->route->needGenerateController()) {
+		if( ! $this->controllerExists()) {
 			$this->generateController();
 		}
 
-		if($this->route->needGenerateMethod()) {
+		if( ! $this->methodExists()) {
 			$this->generateMethod();
 		}
 	}

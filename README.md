@@ -3,8 +3,12 @@ Laravel 4.2 Artisan Route and Route Controller Generator
 
 ## Installation
 
-* Go to your laravel project directory, run `composer require "emsifa/route-generator:dev-master"`
-* In your `app/config/app.php`, add `Emsifa\RouteGenerator\RouteGeneratorServiceProvider` into array `providers`
+1) Go to your laravel project directory, run:
+```
+composer require "emsifa/route-generator:dev-master"
+```
+2) In your `app/config/app.php`, add `Emsifa\RouteGenerator\RouteGeneratorServiceProvider` 
+into array `providers`
 
 ## Examples
 

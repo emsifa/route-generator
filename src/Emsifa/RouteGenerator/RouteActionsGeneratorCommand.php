@@ -15,14 +15,14 @@ class RouteActionsGeneratorCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'route:generate-actions';
+	protected $name = 'generate:route-actions';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Route actions generator';
+	protected $description = 'Generate route actions from all registered routes';
 
 	/**
 	 * Create a new command instance.

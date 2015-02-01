@@ -144,7 +144,7 @@ class RouteGenerator extends Route {
 		$actions_str = implode(",\n\r\t", $action_arr_def);
 
 		$route_data = $only_uses? "'".$route_action['uses']."'" : "[\n\r\t{$actions_str}\n\r\t]";
-		$code = "Route::{$method}('{$uri}', ".$route_data.")";
+		$code = "// generated route\nRoute::{$method}('{$uri}', ".$route_data.")";
 
 		foreach ($conditions as $param => $condition) {
 			$code .= "\n\r\t->where('{$param}', '{$condition}')";
@@ -200,7 +200,17 @@ class RouteGenerator extends Route {
 
 		$route_params = array();
 		foreach($route_params_key as $i => $key) {
-			$route_params[$key] = $route_params_value[$i];
+			// check if parameter is optional
+			if(preg_match('/\{'.$key.'\?/', $uri)) {
+				$value = $route_params_value[$i];
+				if(in_array($value, ['false','true','array()','null']) OR is_numeric($value)) {
+					$route_params[$key] = $value;
+ 				} else {
+					$route_params[$key] = "'{$value}'";
+ 				}
+			} else {
+				$route_params[$key] = null;	
+			}
 		}
 
 		return $route_params;

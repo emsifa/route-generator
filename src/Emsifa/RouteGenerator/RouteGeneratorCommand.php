@@ -16,14 +16,14 @@ class RouteGeneratorCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'route:generate';
+	protected $name = 'generate:route';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Route generator';
+	protected $description = 'Generate a route and action if not exists';
 
 	/**
 	 * Create a new command instance.
@@ -58,6 +58,12 @@ class RouteGeneratorCommand extends Command {
 		}
 
 		$route_generator = new RouteGenerator($method, $uri, $action);
+
+		foreach($conditions as $cond) {
+			list($param, $regex) = explode(':', $cond, 2);
+			$route_generator->where($param, $regex);
+		}
+
 		$route_str = strtoupper($method)." ".$route_generator->resolvedUri();
 		$route_generator->generate($route_file, true);	
 		$this->info("# Generate route '{$route_str}' using '".$route_generator->getActionName()."'");

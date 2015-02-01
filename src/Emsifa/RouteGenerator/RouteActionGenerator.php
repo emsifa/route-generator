@@ -149,8 +149,7 @@ class RouteActionGenerator {
 
 		$params_arr = [];
 		foreach($route_params as $param => $value) {
-			$value = $this->stringify($value);
-			$params_arr[] = empty($value)? "\${$param}" : "\${$param} = {$value}";
+			$params_arr[] = is_null($value)? "\${$param}" : "\${$param} = {$value}";
 		}
 
 		$params_str = implode(", ", $params_arr);
@@ -175,6 +174,35 @@ class RouteActionGenerator {
 			}
 		}
 
+		$route_params = $this->route->parseParams();
+		$route_conditions = $this->route->getConditions();
+
+		if(!empty($route_params)) {
+			$doc_lines[] = '-------------------------------';
+		}
+
+		foreach ($route_params as $param => $default_value) {
+			$type = "string";
+
+			if( ! is_null($default_value) 
+				AND 
+				(
+					in_array($default_value, ['false','true','null','array()']) 
+					OR 
+					is_numeric($default_value)
+				)
+			) {
+				$type = "mixed";
+			}
+
+			$param_anotation = "@param\t{$type} \${$param}";
+			if(array_key_exists($param, $route_conditions)) {
+				$param_anotation .= " ".$route_conditions[$param];
+			}
+
+			$doc_lines[] = $param_anotation;
+		}
+
 		array_unshift($doc_lines, '');
 
 		$doc_str = implode("\n\r\t * ", $doc_lines);
@@ -190,21 +218,6 @@ class RouteActionGenerator {
 		$this->has_generate_method = true;
 
 		return $make;
-	}
-
-	protected function stringify($value)
-	{
-		if(is_array($value)) {
-			return 'array()';
-		} elseif(false === $value) {
-			return 'false';
-		} elseif(true === $value) {
-			return 'true';
-		} elseif(has_null($value)) {
-			return 'null';
-		}
-
-		return $value;
 	}
 
 }

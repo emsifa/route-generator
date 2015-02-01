@@ -28,7 +28,7 @@ And also, this command will automatically generate controller `UserController` a
 php artisan generate:route post user/edit/{id_user}/{output?=json} User\\UserController@edit --name="post_edit_user" --before="auth|csrf" --where="id_user:[0-9]+"
 ```
 
-**Generated route:**
+Generated route:
 
 ```php
 Route::post('/user/edit/{id_user}/{output?}', [
@@ -39,10 +39,12 @@ Route::post('/user/edit/{id_user}/{output?}', [
 	->where('id_user', '[0-9]+');
 ```
 
-**Generated controller and method:**
+Generated controller and method:
 
 ```php
-<?php namespace User;
+<?php 
+
+namespace User;
 
 use BaseController;
 
@@ -76,7 +78,7 @@ class UserController extends BaseController {
 }
 ```
 
-## Generate route actions from routes file
+## Generate route actions from registered routes
 
 Second command from this package is `generate:route-actions`. 
 This command will generate Controllers and Methods like example above from registered routes.

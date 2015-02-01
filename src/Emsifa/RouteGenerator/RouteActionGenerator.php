@@ -102,7 +102,7 @@ class RouteActionGenerator {
 		$content = file_get_contents($stub_file);
 		
 		$vars = [
-			'namespace' => empty($namespace)? '' : "namespace {$namespace};\n",
+			'namespace' => empty($namespace)? '' : "\n\nnamespace {$namespace};\n",
 			'classname' => $classname,
 			'used_classes' => ''
 		];
